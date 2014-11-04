@@ -1,0 +1,16 @@
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\bin\Debug\WordExport.exe.config
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\bin\Debug\WordExport.exe
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\bin\Debug\WordExport.pdb
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport.csprojResolveAssemblyReference.cache
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\MainWindow.baml
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\MainWindow.g.cs
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\App.g.cs
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport_MarkupCompile.cache
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport.g.resources
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport.Properties.Resources.resources
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport.csproj.GenerateResource.Cache
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport.exe
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport.pdb
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\WordExport.csproj.ResolveComReference.cache
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\ProgressWnd.baml
+D:\Code\CSharpProjects\WordProjects\WordExport\WordExport\obj\Debug\ProgressWnd.g.cs
