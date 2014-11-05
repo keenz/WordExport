@@ -63,8 +63,20 @@ namespace WordExport
                 
                 return;
             }
-            wordDoc.Visible = true;
+            //wordDoc.Visible = true;
+            try
+            {
+                wordDoc.Save();
+                //wordDoc.SaveAs(AppDirector.DocumentPath);
+                //wordDoc.Close();
 
+                //Process.Start(AppDirector.DocumentPath);
+                //Process.Start(AppDirector.TemplatePath);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+            }
             
         }
 

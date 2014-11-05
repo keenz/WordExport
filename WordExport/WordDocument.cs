@@ -389,10 +389,15 @@ namespace WordExport
         }
 
         // СОХРАНЯЕМ НА ДИСК С ПЕРЕЗАПИСЬЮ СУЩЕСТВУЮЩЕГО ФАЙЛА
-        public void Save(string pathToSave)
+        public void SaveAs(string pathToSave)
         {
             Object pathToSaveObj = pathToSave;
             _document.SaveAs(ref pathToSaveObj, Word.WdSaveFormat.wdFormatDocument, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj);
+        }
+
+        public void Save()
+        {
+            _document.Save();
         }
 
         // закрытие открытого документа и приложения

@@ -44,13 +44,27 @@ namespace WordExport
         {
             get 
             { 
-                //return _templatePath; 
-                return "F:\\temp\\Болванка для фоток.dotx";
+                return _templatePath; 
             }
             set 
             { 
                 _templatePath = value;
                 OnPropertyChanged("TemplatePath");
+            }
+        }
+
+        private string _documentName;
+
+        public string DocumentName
+        {
+            get
+            {
+                return _documentName; 
+            }
+            set
+            {
+                _documentName = value;
+                OnPropertyChanged("DocumentName");
             }
         }
 
@@ -72,8 +86,7 @@ namespace WordExport
         {
             get 
             { 
-                //return _folderPath; 
-                return "F:\\temp\\foto";
+                return _folderPath; 
             }
             set
             {
@@ -99,9 +112,9 @@ namespace WordExport
         private void OnBtnChooseTemplate(object sender, RoutedEventArgs e)
         {            
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "Word 97-2003 Documents (*.doc)|*.doc|Word 2007 Documents (*.docx)|*.docx|Word 2003 Template (*.dot)|*.dot|Word 2007 Template (*.dotx)|*.dotx";
-           
+            
+            //dlg.Filter = "Word Documents (*.doc)|*.doc|Word 2007 Documents (*.docx)|*.docx|Word 2003 Template (*.dot)|*.dot|Word 2007 Template (*.dotx)|*.dotx";
+            dlg.Filter = @"Word Documents and Templates (*.doc;*.docx;*.dot;*.dotx)|*.doc;*.docx;*.dot;*.dotx";
             Nullable<bool> result = dlg.ShowDialog();           
             if (result == true)
             {
@@ -141,6 +154,9 @@ namespace WordExport
         {
             PicWidth = 550;
             ErrorMessage = String.Empty;
+            TemplatePath = "F:\\temp\\Болванка для фоток.dotx";
+            FolderPath = "F:\\temp\\foto";
+            DocumentName = "Document.docx";
         }
         #endregion //Event handlers
 
@@ -158,7 +174,7 @@ namespace WordExport
             {
                 ErrorMessage = String.Empty;
                 CheckInputs();
-                _appDirector.Start(PicWidth, FolderPath, TemplatePath);                
+                _appDirector.Start(PicWidth, FolderPath, TemplatePath, DocumentName);                
             }
             catch (Exception ex)
             {

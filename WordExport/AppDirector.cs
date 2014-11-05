@@ -16,9 +16,16 @@ namespace WordExport
             get { return Path.Combine(FolderPath, ResizeFolderName); }
         }
 
+        public string DocumentPath
+        {
+            get { return Path.Combine(ResizedFolderPath, DocumentName); }
+        }
+
         public string FolderPath { get; private set; }
 
         public string TemplatePath { get; private set; }
+
+        public string DocumentName { get; private set; }
 
         public int Width { get; private set; }
 
@@ -40,11 +47,12 @@ namespace WordExport
         /// <summary>
         /// Start
         /// </summary>
-        public void Start(int width, string folderPath, string templatePath)
+        public void Start(int width, string folderPath, string templatePath, string documentName)
         {
             Width = width;
             FolderPath = folderPath;
             TemplatePath = templatePath;
+            DocumentName = documentName;
 
             _progressWnd = new ProgressWnd();
             _progressWnd.AppDirector = this;
