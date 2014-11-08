@@ -34,39 +34,59 @@ namespace WordExport
                 wordDoc.InsertBreak();
 
                 var dInfo = new DirectoryInfo(AppDirector.ResizedFolderPath);
-                var files = dInfo.GetFiles("*.jpg")
+                /*var files = dInfo.GetFiles("*.jpg")
                                  .Concat(dInfo.GetFiles("*.jpeg"))
                                  .Concat(dInfo.GetFiles("*.JPG"))
                                  .Concat(dInfo.GetFiles("*.JPEG"));
+                 */
+                var files = dInfo.GetFiles("*.JPG");
+
                 int i = 1;
                 foreach (var fileInfo in files)
                 {
+                    if (NeedStop)
+                    {
+                        break;
+                    }
+
                     var text = String.Format("Фото {0}.   ", i);
                     
                     if ((i % 2) == 0) // bottom photo
                     {
                         wordDoc.InsertFotoText(text);
-                        wordDoc.InsertImage(fileInfo.FullName);                       
-                        wordDoc.InsertBreak();
+                        wordDoc.InsertImage(fileInfo.FullName);
+                        if (files.Count<FileInfo>() > i)
+                        {
+                            wordDoc.InsertBreak();
+                        }
                     }
                     else // top photo
                     {
                         wordDoc.InsertImage(fileInfo.FullName);
                         wordDoc.InsertFotoText(text);
                     }
+                    Trace.WriteLine(String.Format("file: {0} count:{1}", fileInfo.FullName, i.ToString()));
                     i++;
                 }
             }
             catch (Exception error)
             {
-                if (wordDoc != null) { wordDoc.Close(); }
-                
+                if (wordDoc != null) 
+                { 
+                    wordDoc.Close(); 
+                }                
                 return;
             }
+
+            if (NeedStop)
+            {
+                return;
+            }
+
             //wordDoc.Visible = true;
             try
             {
-                wordDoc.Save();
+                wordDoc.Save();                
                 //wordDoc.SaveAs(AppDirector.DocumentPath);
                 //wordDoc.Close();
 
@@ -76,6 +96,7 @@ namespace WordExport
             catch (Exception ex)
             {
                 Trace.WriteLine(ex.Message);
+                wordDoc.Close();
             }
             
         }

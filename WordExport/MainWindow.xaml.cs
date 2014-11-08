@@ -112,9 +112,8 @@ namespace WordExport
         private void OnBtnChooseTemplate(object sender, RoutedEventArgs e)
         {            
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            
-            //dlg.Filter = "Word Documents (*.doc)|*.doc|Word 2007 Documents (*.docx)|*.docx|Word 2003 Template (*.dot)|*.dot|Word 2007 Template (*.dotx)|*.dotx";
-            dlg.Filter = @"Word Documents and Templates (*.doc;*.docx;*.dot;*.dotx)|*.doc;*.docx;*.dot;*.dotx";
+                        
+            dlg.Filter = @"Word Templates (.dot;*.dotx)|*.dot;*.dotx";
             Nullable<bool> result = dlg.ShowDialog();           
             if (result == true)
             {
@@ -152,7 +151,7 @@ namespace WordExport
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            PicWidth = 550;
+            PicWidth = 240;
             ErrorMessage = String.Empty;
             TemplatePath = "F:\\temp\\Болванка для фоток.dotx";
             FolderPath = "F:\\temp\\foto";

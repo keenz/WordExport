@@ -5,6 +5,7 @@ using System.Text;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
 using Microsoft.Office.Interop.Word;
+using System.Drawing;
 
 namespace WordExport
 {
@@ -329,7 +330,24 @@ namespace WordExport
             var pPicture = _document.Paragraphs.Add();
             pPicture.Format.SpaceAfter = 10f;
             pPicture.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-            _document.InlineShapes.AddPicture(pathToFile, Range: pPicture.Range);
+            var shape = _document.InlineShapes.AddPicture(pathToFile, Range: pPicture.Range);
+
+            var dm = 330;
+            var srcImage = Image.FromFile(pathToFile);
+            var srcSize = srcImage.Size;
+            double scale = Convert.ToDouble(srcSize.Height) / Convert.ToDouble(srcSize.Width);
+
+            int width = dm;
+            int height = Convert.ToInt32(scale * width);
+
+            if (dm > 1)
+            {
+                height = dm;
+                width = Convert.ToInt32(height / scale);
+            }
+
+            shape.Width = width;
+            shape.Height = height;
         }
 
         public void InsertFotoText(string text)

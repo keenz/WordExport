@@ -27,10 +27,12 @@ namespace WordExport
             Trace.WriteLine("ImageMan - Do work");
 
             var resizeFolderPath = Path.Combine(AppDirector.FolderPath, AppDirector.ResizeFolderName);
-            if (!Directory.Exists(resizeFolderPath))
+            if (Directory.Exists(resizeFolderPath))
             {
-                Directory.CreateDirectory(resizeFolderPath);
+                return;    
             }
+
+            Directory.CreateDirectory(resizeFolderPath);
 
             var dInfo = new DirectoryInfo(AppDirector.FolderPath);            
             var files = dInfo.GetFiles("*.jpg")
