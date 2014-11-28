@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -67,7 +68,15 @@ namespace WordExport
 
         private static Image ResizeImage(Image imgToResize, Size size)
         {
-            return (Image)(new Bitmap(imgToResize, size));
+            Bitmap newImage = new Bitmap(size.Width, size.Height);
+            using (Graphics gr = Graphics.FromImage(newImage))
+            {
+                gr.SmoothingMode = SmoothingMode.HighQuality;
+                gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                gr.DrawImage(imgToResize, new Rectangle(0, 0, size.Width, size.Height));
+            }
+            return (Image)(newImage);
         }
 
     }
