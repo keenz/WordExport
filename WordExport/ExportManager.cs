@@ -41,6 +41,7 @@ namespace WordExport
                  */
                 var files = dInfo.GetFiles("*.JPG");
 
+                int k = AppDirector.StartNum;
                 int i = 1;
                 foreach (var fileInfo in files)
                 {
@@ -49,7 +50,7 @@ namespace WordExport
                         break;
                     }
 
-                    var text = String.Format("Фото {0}.   ", i);
+                    var text = String.Format("Фото {0}.   ", k);
                     
                     if ((i % 2) == 0) // bottom photo
                     {
@@ -65,8 +66,8 @@ namespace WordExport
                         wordDoc.InsertImage(fileInfo.FullName);
                         wordDoc.InsertFotoText(text);
                     }
-                    Trace.WriteLine(String.Format("file: {0} count:{1}", fileInfo.FullName, i.ToString()));
-                    i++;
+                    Trace.WriteLine(String.Format("file: {0} count:{1}", fileInfo.FullName, k.ToString()));
+                    i++; k++;
                 }
             }
             catch (Exception error)

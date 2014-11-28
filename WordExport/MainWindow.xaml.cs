@@ -106,6 +106,18 @@ namespace WordExport
                 OnPropertyChanged("PicWidth");
             }
         }
+
+        private int _startNum;
+
+        public int StartNum
+        {
+            get { return _startNum; }
+            set
+            {
+                _startNum = value;
+                OnPropertyChanged("StartNum");
+            }
+        }
         #endregion //Properties
 
         #region Event handlers
@@ -151,6 +163,7 @@ namespace WordExport
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
+            StartNum = 1;
             PicWidth = 240;
             ErrorMessage = String.Empty;
             TemplatePath = "F:\\temp\\Болванка для фоток.dotx";
@@ -173,7 +186,7 @@ namespace WordExport
             {
                 ErrorMessage = String.Empty;
                 CheckInputs();
-                _appDirector.Start(PicWidth, FolderPath, TemplatePath, DocumentName);                
+                _appDirector.Start(StartNum, PicWidth, FolderPath, TemplatePath, DocumentName);                
             }
             catch (Exception ex)
             {

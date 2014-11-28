@@ -29,6 +29,8 @@ namespace WordExport
 
         public int Width { get; private set; }
 
+        public int StartNum { get; private set; }
+
         private ProgressWnd _progressWnd;
 
         private ImageManager _imageMan;
@@ -47,8 +49,9 @@ namespace WordExport
         /// <summary>
         /// Start
         /// </summary>
-        public void Start(int width, string folderPath, string templatePath, string documentName)
+        public void Start(int startNum, int width, string folderPath, string templatePath, string documentName)
         {
+            StartNum = startNum;
             Width = width;
             FolderPath = folderPath;
             TemplatePath = templatePath;

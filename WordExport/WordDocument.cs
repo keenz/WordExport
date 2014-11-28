@@ -332,7 +332,7 @@ namespace WordExport
             pPicture.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
             var shape = _document.InlineShapes.AddPicture(pathToFile, Range: pPicture.Range);
 
-            var dm = 330;
+            var dm = 315;
             var srcImage = Image.FromFile(pathToFile);
             var srcSize = srcImage.Size;
             double scale = Convert.ToDouble(srcSize.Height) / Convert.ToDouble(srcSize.Width);
@@ -364,7 +364,7 @@ namespace WordExport
             rng.Font.Bold = -1;
             rng.Collapse(Word.WdCollapseDirection.wdCollapseEnd);
 
-            rng.Text = "Описание дефекта.\r\n"; 
+            rng.Text = "Дефекты.\r\n"; 
             rng.Font.Size = 14;
             rng.Font.Name = "Arial";
             rng.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
