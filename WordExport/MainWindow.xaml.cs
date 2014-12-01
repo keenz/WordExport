@@ -118,6 +118,8 @@ namespace WordExport
                 OnPropertyChanged("StartNum");
             }
         }
+
+        private List<ChooseDirControl> _listControls = new List<ChooseDirControl>(); 
         #endregion //Properties
 
         #region Event handlers
@@ -130,24 +132,6 @@ namespace WordExport
             if (result == true)
             {
                 TemplatePath = dlg.FileName;
-            }
-        }
-
-        private void OnBtnChooseFolder(object sender, RoutedEventArgs e)
-        {
-            var dlg = new System.Windows.Forms.FolderBrowserDialog();
-            dlg.Description = "Выберите папку с изображениями JPG";
-            dlg.ShowNewFolderButton = false;
-            dlg.RootFolder = Environment.SpecialFolder.MyComputer;
-
-            var result = dlg.ShowDialog();
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
-                FolderPath = dlg.SelectedPath;
-                /*foreach (string fileName in Directory.GetFiles(folder, "*.xml", SearchOption.TopDirectoryOnly))
-                {
-                    
-                }*/
             }
         }
 
@@ -169,6 +153,8 @@ namespace WordExport
             TemplatePath = "F:\\temp\\Болванка для фоток.dotx";
             FolderPath = "F:\\temp\\foto";
             DocumentName = "Document.docx";
+
+            AddControl();
         }
         #endregion //Event handlers
 
@@ -210,27 +196,30 @@ namespace WordExport
                 }
             }
 
-            if (String.IsNullOrEmpty(FolderPath))
+            foreach (ChooseDirControl control in _listControls)
             {
-                errorMsg += "\n- Не выбрана папка с изображениями";
-            }
-            else
-            {
-                if (!Directory.Exists(FolderPath))
+                if (String.IsNullOrEmpty(control.FolderPath))
                 {
-                    errorMsg += "\n- Выбранной папки не существует";
+                    errorMsg += "\n- Не выбрана папка с изображениями (" + control.TextBlockLabel + ")";
                 }
-                else 
+                else
                 {
-                    
-                    var dInfo = new DirectoryInfo(FolderPath);
-                    var files = dInfo.GetFiles("*.jpg")
-                                     .Concat(dInfo.GetFiles("*.jpeg"))
-                                     .Concat(dInfo.GetFiles("*.JPG"))
-                                     .Concat(dInfo.GetFiles("*.JPEG"));
-                    if (files.Count<FileInfo>() == 0)
+                    if (!Directory.Exists(control.FolderPath))
                     {
-                        errorMsg += "\n- В выбранной папке нет изображений";
+                        errorMsg += "\n- Выбранной папки не существует (" + control.TextBlockLabel + ")";
+                    }
+                    else
+                    {
+
+                        var dInfo = new DirectoryInfo(control.FolderPath);
+                        var files = dInfo.GetFiles("*.jpg")
+                                         .Concat(dInfo.GetFiles("*.jpeg"))
+                                         .Concat(dInfo.GetFiles("*.JPG"))
+                                         .Concat(dInfo.GetFiles("*.JPEG"));
+                        if (files.Count<FileInfo>() == 0)
+                        {
+                            errorMsg += "\n- В выбранной папке нет изображений (" + control.TextBlockLabel + ")";
+                        }
                     }
                 }
             }
@@ -239,6 +228,20 @@ namespace WordExport
             {
                 throw new Exception(errorMsg);
             }
+        }
+
+        private void OnAddBtnClick(object sender, RoutedEventArgs e)
+        {
+            AddControl();
+        }
+
+        private void AddControl()
+        {
+            var control = new ChooseDirControl();
+            control.TextBlockLabel = String.Format("Папка №{0}", _listControls.Count + 1);
+            panel.Children.Add(control);
+            _listControls.Add(control);
+            scroll.ScrollToBottom();
         }
     }
 }

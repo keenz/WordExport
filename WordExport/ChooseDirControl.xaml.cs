@@ -48,10 +48,25 @@ namespace WordExport
             }
         }
 
+        private string _textBlockLabel;
+
+        public string TextBlockLabel
+        {
+            get
+            {
+                return _textBlockLabel;
+            }
+            set
+            {
+                _textBlockLabel = value;
+                OnPropertyChanged("TextBlockLabel");
+            }
+        }
+
         public ChooseDirControl()
         {
             InitializeComponent();
-            mainGrid.DataContext = this; 
+            myGrid.DataContext = this; 
         }
 
         private void OnBtnChooseFolder(object sender, RoutedEventArgs e)
