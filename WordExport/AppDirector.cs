@@ -11,21 +11,11 @@ namespace WordExport
     {
         public static string ResizeFolderName = "Resize";
 
-        public string ResizedFolderPath
-        {
-            get { return Path.Combine(FolderPath, ResizeFolderName); }
-        }
-
-        public string DocumentPath
-        {
-            get { return Path.Combine(ResizedFolderPath, DocumentName); }
-        }
-
-        public string FolderPath { get; private set; }
-
         public string TemplatePath { get; private set; }
 
         public string DocumentName { get; private set; }
+
+        public List<string> ListFolders { get; private set; }
 
         public int Width { get; private set; }
 
@@ -49,11 +39,11 @@ namespace WordExport
         /// <summary>
         /// Start
         /// </summary>
-        public void Start(int startNum, int width, string folderPath, string templatePath, string documentName)
+        public void Start(int startNum, int width, List<string> folders, string templatePath, string documentName)
         {
             StartNum = startNum;
             Width = width;
-            FolderPath = folderPath;
+            ListFolders = folders;
             TemplatePath = templatePath;
             DocumentName = documentName;
 

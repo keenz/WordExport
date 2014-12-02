@@ -27,35 +27,38 @@ namespace WordExport
         {
             Trace.WriteLine("ImageMan - Do work");
 
-            var resizeFolderPath = Path.Combine(AppDirector.FolderPath, AppDirector.ResizeFolderName);
-            if (Directory.Exists(resizeFolderPath))
+            foreach (var folderPath in AppDirector.ListFolders)
             {
-                return;    
-            }
-
-            Directory.CreateDirectory(resizeFolderPath);
-
-            var dInfo = new DirectoryInfo(AppDirector.FolderPath);            
-            var files = dInfo.GetFiles("*.jpg")
-                             .Concat(dInfo.GetFiles("*.jpeg"))
-                             .Concat(dInfo.GetFiles("*.JPG"))
-                             .Concat(dInfo.GetFiles("*.JPEG"));
-            foreach (var fileInfo in files)
-            {
-                if (NeedStop)
+                var resizeFolderPath = Path.Combine(folderPath, AppDirector.ResizeFolderName);
+                if (Directory.Exists(resizeFolderPath))
                 {
-                    break;
+                    continue;
                 }
 
-                var srcImage = Image.FromFile(fileInfo.FullName);
-                var srcSize = srcImage.Size;
-                double scale = Convert.ToDouble(srcSize.Height) / Convert.ToDouble(srcSize.Width);
-                int width = AppDirector.Width;
-                int height = Convert.ToInt32(scale * width);
+                Directory.CreateDirectory(resizeFolderPath);
 
-                var image = ResizeImage(srcImage, new Size(width, height));
-                var newFilePath = Path.Combine(resizeFolderPath, Path.GetFileName(fileInfo.FullName));
-                image.Save(newFilePath);
+                var dInfo = new DirectoryInfo(folderPath);
+                var files = dInfo.GetFiles("*.jpg")
+                                 .Concat(dInfo.GetFiles("*.jpeg"))
+                                 .Concat(dInfo.GetFiles("*.JPG"))
+                                 .Concat(dInfo.GetFiles("*.JPEG"));
+                foreach (var fileInfo in files)
+                {
+                    if (NeedStop)
+                    {
+                        break;
+                    }
+
+                    var srcImage = Image.FromFile(fileInfo.FullName);
+                    var srcSize = srcImage.Size;
+                    double scale = Convert.ToDouble(srcSize.Height) / Convert.ToDouble(srcSize.Width);
+                    int width = AppDirector.Width;
+                    int height = Convert.ToInt32(scale * width);
+
+                    var image = ResizeImage(srcImage, new Size(width, height));
+                    var newFilePath = Path.Combine(resizeFolderPath, Path.GetFileName(fileInfo.FullName));
+                    image.Save(newFilePath);
+                }
             }
             
         }

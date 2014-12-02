@@ -33,41 +33,45 @@ namespace WordExport
                 Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter);
                 wordDoc.InsertBreak();
 
-                var dInfo = new DirectoryInfo(AppDirector.ResizedFolderPath);
-                /*var files = dInfo.GetFiles("*.jpg")
-                                 .Concat(dInfo.GetFiles("*.jpeg"))
-                                 .Concat(dInfo.GetFiles("*.JPG"))
-                                 .Concat(dInfo.GetFiles("*.JPEG"));
-                 */
-                var files = dInfo.GetFiles("*.JPG");
-
                 int k = AppDirector.StartNum;
                 int i = 1;
-                foreach (var fileInfo in files)
+                foreach (var folderPath in AppDirector.ListFolders)
                 {
-                    if (NeedStop)
-                    {
-                        break;
-                    }
-
-                    var text = String.Format("Фото {0}.   ", k);
+                    var path = Path.Combine(folderPath, AppDirector.ResizeFolderName);
+                    var dInfo = new DirectoryInfo(path);
+                    /*var files = dInfo.GetFiles("*.jpg")
+                                     .Concat(dInfo.GetFiles("*.jpeg"))
+                                     .Concat(dInfo.GetFiles("*.JPG"))
+                                     .Concat(dInfo.GetFiles("*.JPEG"));
+                     */
+                    var files = dInfo.GetFiles("*.JPG");
                     
-                    if ((i % 2) == 0) // bottom photo
+                    foreach (var fileInfo in files)
                     {
-                        wordDoc.InsertFotoText(text);
-                        wordDoc.InsertImage(fileInfo.FullName);
-                        if (files.Count<FileInfo>() > i)
+                        if (NeedStop)
                         {
-                            wordDoc.InsertBreak();
+                            break;
                         }
+
+                        var text = String.Format("Фото {0}.   ", k);
+
+                        if ((i % 2) == 0) // bottom photo
+                        {
+                            wordDoc.InsertFotoText(text);
+                            wordDoc.InsertImage(fileInfo.FullName);
+                            if (files.Count<FileInfo>() > i)
+                            {
+                                wordDoc.InsertBreak();
+                            }
+                        }
+                        else // top photo
+                        {
+                            wordDoc.InsertImage(fileInfo.FullName);
+                            wordDoc.InsertFotoText(text);
+                        }
+                        Trace.WriteLine(String.Format("file: {0} count:{1}", fileInfo.FullName, k.ToString()));
+                        i++; k++;
                     }
-                    else // top photo
-                    {
-                        wordDoc.InsertImage(fileInfo.FullName);
-                        wordDoc.InsertFotoText(text);
-                    }
-                    Trace.WriteLine(String.Format("file: {0} count:{1}", fileInfo.FullName, k.ToString()));
-                    i++; k++;
                 }
             }
             catch (Exception error)

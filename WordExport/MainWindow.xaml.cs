@@ -80,21 +80,6 @@ namespace WordExport
             }
         }
 
-        private string _folderPath;
-
-        public string FolderPath
-        {
-            get 
-            { 
-                return _folderPath; 
-            }
-            set
-            {
-                _folderPath = value;
-                OnPropertyChanged("FolderPath");
-            }
-        }
-
         private int _picWidth;
 
         public int PicWidth
@@ -119,7 +104,8 @@ namespace WordExport
             }
         }
 
-        private List<ChooseDirControl> _listControls = new List<ChooseDirControl>(); 
+        private List<ChooseDirControl> _listControls = new List<ChooseDirControl>();
+
         #endregion //Properties
 
         #region Event handlers
@@ -151,7 +137,6 @@ namespace WordExport
             PicWidth = 240;
             ErrorMessage = String.Empty;
             TemplatePath = "F:\\temp\\Болванка для фоток.dotx";
-            FolderPath = "F:\\temp\\foto";
             DocumentName = "Document.docx";
 
             AddControl();
@@ -172,7 +157,12 @@ namespace WordExport
             {
                 ErrorMessage = String.Empty;
                 CheckInputs();
-                _appDirector.Start(StartNum, PicWidth, FolderPath, TemplatePath, DocumentName);                
+                var list = new List<string>();
+                foreach (var item in _listControls)
+                {
+                    list.Add(item.FolderPath);
+                }
+                _appDirector.Start(StartNum, PicWidth, list, TemplatePath, DocumentName);                
             }
             catch (Exception ex)
             {
@@ -196,11 +186,12 @@ namespace WordExport
                 }
             }
 
+            int filesCount = 0;
             foreach (ChooseDirControl control in _listControls)
             {
                 if (String.IsNullOrEmpty(control.FolderPath))
                 {
-                    errorMsg += "\n- Не выбрана папка с изображениями (" + control.TextBlockLabel + ")";
+                    continue;
                 }
                 else
                 {
@@ -220,8 +211,17 @@ namespace WordExport
                         {
                             errorMsg += "\n- В выбранной папке нет изображений (" + control.TextBlockLabel + ")";
                         }
+                        else
+                        {
+                            filesCount += files.Count<FileInfo>();
+                        }
                     }
                 }
+            }
+
+            if (filesCount == 0)
+            {
+                errorMsg += "\n- В выбранных папках нет изображений";
             }
 
             if (!String.IsNullOrEmpty(errorMsg))
