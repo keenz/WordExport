@@ -26,6 +26,7 @@ namespace WordExport
         protected override void OnWorkerDoWork(object sender, DoWorkEventArgs e)
         {
             Trace.WriteLine("ImageMan - Do work");
+            return;
 
             foreach (var folderPath in AppDirector.ListFolders)
             {

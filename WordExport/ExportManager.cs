@@ -29,15 +29,19 @@ namespace WordExport
                 {
                     wordDoc.InsertParagraph();
                 }
-                wordDoc.InsertText("Приложение.", true,
-                Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter);
+                wordDoc.InsertText("Приложение №3.", true,
+                Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter, 16);
+                wordDoc.InsertParagraph();
+                wordDoc.InsertText("ФОТОМАТЕРИАЛЫ.", true,
+                Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter, 16);
                 wordDoc.InsertBreak();
 
                 int k = AppDirector.StartNum;
                 int i = 1;
                 foreach (var folderPath in AppDirector.ListFolders)
                 {
-                    var path = Path.Combine(folderPath, AppDirector.ResizeFolderName);
+                    //var path = Path.Combine(folderPath, AppDirector.ResizeFolderName);
+                    var path = folderPath;
                     var dInfo = new DirectoryInfo(path);
                     /*var files = dInfo.GetFiles("*.jpg")
                                      .Concat(dInfo.GetFiles("*.jpeg"))

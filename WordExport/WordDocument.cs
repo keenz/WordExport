@@ -374,7 +374,7 @@ namespace WordExport
             rng.InsertParagraphAfter();           
         }
 
-        public void InsertText(string text, bool isBold, WdParagraphAlignment alignment)
+        public void InsertText(string text, bool isBold, WdParagraphAlignment alignment, float fontSize = 14)
         {
             if (_document == null) { throw new Exception("Ничего не выбрано"); }
 
@@ -384,7 +384,7 @@ namespace WordExport
             if (isBold)
                 rng.Bold = -1;
             rng.Text = text;
-            rng.Font.Size = 14;
+            rng.Font.Size = fontSize;
             rng.Font.Name = "Arial";
             rng.ParagraphFormat.Alignment = alignment;  
             rng.InsertParagraphAfter();
